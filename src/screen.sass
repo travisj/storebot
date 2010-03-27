@@ -8,7 +8,7 @@
 @import blueprint/modules/scaffolding.sass
 
 // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
-// +blueprint
++blueprint
 
 //Recommended Blueprint configuration with scoping and semantic layout:
 +blueprint-typography("body.bp")
@@ -17,11 +17,10 @@ body.bp
   +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+  #header
+    color: red  
 form.bp
   +blueprint-form
-
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body.three-col
   #container

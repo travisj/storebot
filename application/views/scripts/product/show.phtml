@@ -1,0 +1,15 @@
+<div class="container">
+	<div class="span-17">
+		<h2><?= $this->product['name'] ?></h2>
+		<div>
+			<?= $this->product['description'] ?>
+		</div>
+	</div>
+	<div class="span-5">
+		<select name="item">
+		<?php foreach ($this->product['items'] as $item) : ?>
+		<option value="<?= $item['id'] ?>"><?= $item['name'] ?> - $<?= $item['price'] ?></option>
+		<?php endforeach ?>
+		</select>
+	</div>
+</div>
