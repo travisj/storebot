@@ -20,7 +20,7 @@ session_start();
 
 Zend_Layout::startMvc(array('layoutPath' => '../application/views/layouts'));
 
+require_once("../application/controllers/BaseController.php");
 $front = Zend_Controller_Front::getInstance();
-$front->registerPlugin(new AuthenticationPlugin());
 $front->setControllerDirectory('../application/controllers');
 $front->dispatch();
