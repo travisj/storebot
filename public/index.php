@@ -3,11 +3,14 @@ ob_start("ob_gzhandler", 4096);
 
 set_include_path(
     '../library' . 
+    PATH_SEPARATOR . '../library/Zend/library' . 
     PATH_SEPARATOR . '../' .
     PATH_SEPARATOR . '../application/' .
     PATH_SEPARATOR . '../application/models/' .
     PATH_SEPARATOR . '../application/plugins/' .
     PATH_SEPARATOR . get_include_path()); 
+
+require_once 'config.php';
 
 require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
