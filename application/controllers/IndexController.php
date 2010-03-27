@@ -9,6 +9,6 @@ class IndexController extends BaseController
         
     public function indexAction()
     { 
-		exit('hi');
+		$this->view->pageTitle = 'Home';
 	}
 }

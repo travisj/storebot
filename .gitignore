@@ -1,0 +1,4 @@
+application/config.php
+
+*.swp
+src/.sass-cache*

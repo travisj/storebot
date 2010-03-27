@@ -14,6 +14,16 @@ require_once 'config.php';
 
 require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
+
+$db = new Zend_Db_Adapter_Pdo_Mysql(array(
+	'host'		=> $sb->mysql_host,
+	'username'	=> $sb->mysql_user,
+	'password'	=> $sb->mysql_pass,
+	'dbname'	=> $sb->mysql_name
+));
+
+Zend_Registry::set('db', $db);
+Zend_Registry::set('sb', $sb);
                 
 require_once "config.php";
 session_start(); 
