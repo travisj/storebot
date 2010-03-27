@@ -31,6 +31,15 @@ session_start();
 Zend_Layout::startMvc(array('layoutPath' => '../application/views/layouts'));
 
 require_once("../application/controllers/BaseController.php");
+$routes = new Zend_Config_Ini('application/routes.ini', 'routes');
+$router = new Zend_Controller_Router_Rewrite();
+$router->addConfig($routes, 'routes');
+
+$config = new Zend_Config_Ini('application/routes.ini', 'routes');
+$router = new Zend_Controller_Router_Rewrite();
+$router->addConfig($config, 'routes');
+
 $front = Zend_Controller_Front::getInstance();
+$front->setRouter($router);
 $front->setControllerDirectory('../application/controllers');
 $front->dispatch();

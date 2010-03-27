@@ -1,0 +1,30 @@
+<form action="" method="post">
+<table>
+	<tr>
+		<td>Name:</td>
+		<td><input type="text" name="product[name]" /></td>
+	</tr>
+	<tr>
+		<td>Slug:</td>
+		<td><input type="text" name="product[slug]" /></td>
+	</tr>
+	<tr>
+		<td>Description:</td>
+		<td>
+			<textarea name="product[description]" rows="10" cols="40"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td>Items:</td>
+		<td>
+			<div>
+				Name: <input type="text" name="item[0][name]" /><br />
+				Price: <input type="text" name="item[0][price]" /><br />
+				Quantity: <input type="text" name="item[0][quantity]" /><br />
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td><input type="submit" value="Add" /></td>
+	</tr>
+</form>
