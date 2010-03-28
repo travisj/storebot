@@ -1,0 +1,7 @@
+<?php if (count($this->paginator)): ?>
+<?php foreach ($this->paginator as $item): ?>
+<div class="product">
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'partials/pagination_control.phtml'); ?>

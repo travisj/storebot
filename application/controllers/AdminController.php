@@ -11,7 +11,34 @@ class AdminController extends BaseController
 	{
 	}
 
+	public function categoryAction()
+	{
+		if ($this->_request->isPost()) {
+			$category = $this->_getParam('category');
+			$this->db->insert('category', $category);
+		}
+
+		$this->view->categories = $this->db->select()->from('category')->order('name ASC')->query()->fetchAll();
+	}
+
 	public function productAction()
+	{
+		$id = $this->_getParam('id');
+		if ($id) {
+			$this->view->type = 'update';
+
+			$product = $this->db->fetchRow('SELECT * FROM product WHERE id = ?', $id);
+			$product['items'] = $this->db->fetchAll('SELECT * FROM item WHERE product_id = ?', $product['id']);
+
+			$this->view->product = $product;
+		} else {
+			$this->view->type = 'add';
+		}
+
+		$this->view->categories = $this->db->select()->from('category')->order('name ASC')->query()->fetchAll();
+	}
+
+	public function addProductAction()
 	{
 		if ($this->_request->isPost()) {
 			$product = $this->_getParam('product');
@@ -20,20 +47,55 @@ class AdminController extends BaseController
 				$this->db->insert('product', $product);
 
 				$product_id = $this->db->lastInsertId();
-				$items = $this->_getParam('item');
+				$newitems = $this->_getParam('newitem');
 
-				foreach ($items as $item) {
+				foreach ($newitems as $item) {
 					$item['product_id'] = $product_id;
 					$this->db->insert('item', $item);
 				}
 				$this->db->commit();
+				$this->_redirect('/product/' . $product['slug']);
 			} catch (Exception $e) {
 				$this->db->rollBack();
 				var_dump($e);exit;
 			}
+		} else {
+			$this->_redirect('/admin');
+		}
+	}
 
+	public function updateProductAction()
+	{
+		if ($this->_request->isPost()) {
+			$product = $this->_getParam('product');
+			try {
+				$this->db->beginTransaction();
+				$this->db->update('product', $product, array('id = ?' => $product['id']));
 
-			$this->_redirect('/product/' . $product['slug']);
+				$items = $this->_getParam('item');
+				foreach ($items as $key => $item) {
+					if (isset($item['delete'])) {
+						$this->db->delete('item', array('id = ?'=>$key));
+					} else {
+						$this->db->update('item', $item, array('id = ?'=>$key));
+					}
+				}
+				
+				$newitems = $this->_getParam('newitem');
+				foreach ($newitems as $item) {
+					if ($item['name'] != '') {
+						$item['product_id'] = $product['id'];
+						$this->db->insert('item', $item);
+					}
+				}
+				$this->db->commit();
+				$this->_redirect('/product/' . $product['slug']);
+			} catch (Exception $e) {
+				$this->db->rollBack();
+				var_dump($e);exit;
+			}
+		} else {
+			$this->_redirect('/admin');
 		}
 	}
 

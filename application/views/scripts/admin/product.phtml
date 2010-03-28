@@ -1,30 +1,72 @@
-<form action="" method="post">
+<form action="<?= $this->type == 'add' ? '/admin/add-product' : '/admin/update-product' ?>" method="post">
+<?php if ($this->type == 'update') : ?>
+<input type="hidden" name="product[id]" value="<?= $this->product['id'] ?>" />
+<?php endif ?>
 <table>
 	<tr>
 		<td>Name:</td>
-		<td><input type="text" name="product[name]" /></td>
+		<td><input type="text" name="product[name]" size="70" value="<?= $this->type == 'update' ? $this->product['name'] : '' ?>" /></td>
 	</tr>
 	<tr>
 		<td>Slug:</td>
-		<td><input type="text" name="product[slug]" /></td>
+		<td><input type="text" name="product[slug]" size="70" value="<?= $this->type == 'update' ? $this->product['slug'] : '' ?>" /></td>
+	</tr>
+	<tr>
+		<td>Category:</td>
+		<td>
+			<select name="product[category_id]">
+			<?php foreach ($this->categories as $category) : ?>
+			<option <?= $this->type == 'update' && $this->product['category_id'] == $category['id'] ? 'selected="selected"' : '' ?> value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+			<?php endforeach ?>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>Description:</td>
 		<td>
-			<textarea name="product[description]" rows="10" cols="40"></textarea>
+			<textarea name="product[description]" rows="10" cols="40"><?= $this->type == 'update' ? $this->product['name'] : '' ?></textarea>
 		</td>
 	</tr>
 	<tr>
-		<td>Items:</td>
+		<td style="vertical-align: top">Items:</td>
 		<td>
-			<div>
-				Name: <input type="text" name="item[0][name]" /><br />
-				Price: <input type="text" name="item[0][price]" /><br />
-				Quantity: <input type="text" name="item[0][quantity]" /><br />
-			</div>
+			<table id="item-table">
+				<thead>
+				<tr><td>Name</td><td>Price</td><td>Quantity</td></tr>
+				</thead>
+				<tbody>
+				<?php if ($this->type == 'update') : ?>
+				<?php foreach ($this->product['items'] as $item) : ?>
+				<tr>
+					<td><input type="text" name="item[<?= $item['id'] ?>][name]" value="<?= $item['name'] ?>" /></td>
+					<td><input type="text" name="item[<?= $item['id'] ?>][price]" value="<?= $item['price'] ?>" /></td>
+					<td><input type="text" name="item[<?= $item['id'] ?>][quantity]" value="<?= $item['quantity'] ?>" /></td>
+					<td><input type="checkbox" name="item[<?= $item['id'] ?>][delete]" value="1" /> Delete</td>
+				</tr>
+				<?php endforeach ?>
+				<?php endif ?>
+				<tr class="newitem">
+					<td><input type="text" name="newitem[0][name]" /></td>
+					<td><input type="text" name="newitem[0][price]" /></td>
+					<td><input type="text" name="newitem[0][quantity]" /></td>
+					<td><a href="#" id="add-another-item">Add another</a></td>
+				</tr>
+				</tbody>
+			</table>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="Add" /></td>
+		<td><input type="submit" value="<?= $this->type == 'add' ? 'Add' : 'Update' ?>" /></td>
 	</tr>
+</table>
 </form>
+
+<script type='text/javascript'>
+$(function() {
+	$("#add-another-item").click(function(e) {
+		e.preventDefault();
+		var count = $("#item-table tbody tr.newitem").length;
+		$("#item-table tbody").append('<tr class="newitem"><td><input type="text" name="newitem[' + count + '][name]" /></td><td><input type="text" name="newitem[' + count + '][price]" /></td><td><input type="text" name="newitem[' + count + '][quantity]" /></td><td>&nbsp;</td></tr>');
+	});
+});
+</script>

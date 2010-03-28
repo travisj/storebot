@@ -1,6 +1,6 @@
 <?php                                                                                                                                                                                                    
 
-class IndexController extends BaseController
+class ShopController extends BaseController
 {
     function init()
     {   
@@ -9,16 +9,10 @@ class IndexController extends BaseController
         
     public function indexAction()
     { 
-		$this->view->pageTitle = 'Home';
-	}
-
-	public function aboutAction()
-	{
-		$this->view->pageTitle = 'About';
-	}
-
-	public function policiesAction()
-	{
-		$this->view->pageTitle = 'Policies';
+		$select = $this->db->select()
+					->from('product');
+		$adapter = new Zend_Paginator_Adapter_DbSelect($select);
+		$this->view->paginator = new Zend_Paginator($adapter);
+		$this->view->pageTitle = 'Shop';
 	}
 }

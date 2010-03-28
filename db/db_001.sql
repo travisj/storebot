@@ -4,6 +4,7 @@ create table product (
 	`slug` varchar(75) NOT NULL,
 	`name` varchar(75) NOT NULL,
 	`description` text NOT NULL,
+	`product_id` int NOT NULL,
 	PRIMARY KEY  (`id`),
 	UNIQUE KEY `slug` (`slug`)
 ) engine=innodb;
@@ -27,4 +28,12 @@ create table user (
 	`email` varchar(128) NOT NULL,
 	PRIMARY KEY  (`id`),
 	UNIQUE KEY (`username`)
+) engine=innodb;
+
+drop table if exists `category`;
+create table category (
+	`id` int unsigned NOT NULL auto_increment,
+	`name` varchar(50),
+	PRIMARY KEY  (`id`),
+	UNIQUE KEY `name` (`name`)
 ) engine=innodb;

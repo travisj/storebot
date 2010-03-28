@@ -1,0 +1,12 @@
+<h3>Current Categories</h3>
+<ul>
+<?php foreach ($this->categories as $category) : ?>
+<li><?= $category['name'] ?></li>
+<?php endforeach ?>
+</ul>
+
+<h3>Add A Category</h3>
+<form action="" method="post">
+Name: <input type="text" name="category[name]" size="40" />
+<input type="submit" value="Add" />
+</form>
