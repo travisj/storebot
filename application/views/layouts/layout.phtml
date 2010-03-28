@@ -11,25 +11,45 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 </head>
 <body class="bp">
-	<div id="header">
-		<div class="container">
-			<div class="span-1">&nbsp;</div>
-			<div class="span-22">
-				<h1><?= $this->application_name ?></h1>
+		<div id="header">
+			<div class="container">
+				<div class="span-1">&nbsp;</div>
+				<div class="span-7">
+					<img src="/images/logo.png" />
+				</div>
+				<div class="span-1">&nbsp;</div>
+				<div id="top-nav" class="span-14">
+					<a href="/about"><img class="tab" src="/images/about_tab.png" /></a>
+					<a href="shop"><img class="tab" src="/images/shop_tab.png" /></a>
+					<a href="policy"><img class="tab" src="/images/policies_tab.png" /></a>
+					<a href="/cart"><img class="cart" src="/images/cart_tab.png" /></a>
+				</div>
+				<div class="span-1 last">&nbsp;</div>
 			</div>
-			<div class="span-1 last">&nbsp;</div>
 		</div>
-	</div>
-	<div id="container">
-		<div class="container">
-			<div class="span-1">&nbsp;</div>
-			<div class="span-22">
-				<?= $this->layout()->content ?>
+		<div id="main">
+			<div class="container">
+				<div class="span-1">&nbsp;</div>
+				<div id="content-background" class="span-22">
+					<div class="span-1">&nbsp;</div>
+					<div id="content" class="span-20">
+						<?= $this->layout()->content ?>
+					</div>
+					<div class="span-1">&nbsp;</div>
+					&nbsp;
+				</div>
+				<div class="span-1 last">&nbsp;</div>
 			</div>
-			<div class="span-1 last">&nbsp;</div>
 		</div>
-	</div>
-	<div id="footer">
+		<div id="footer">
+			<div class="container">
+				<div class="span-1">&nbsp;</div>
+				<div id="footer-background" class="span-22">
+					aoeuaoeu
+				</div>
+				<div class="span-1 last">&nbsp;</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
