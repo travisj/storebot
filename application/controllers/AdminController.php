@@ -9,6 +9,7 @@ class AdminController extends BaseController
         
     public function indexAction()
 	{
+		$this->view->products = $this->db->fetchAll('SELECT * FROM product');
 	}
 
 	public function categoryAction()
@@ -54,7 +55,7 @@ class AdminController extends BaseController
 					$this->db->insert('item', $item);
 				}
 				$this->db->commit();
-				$this->_redirect('/product/' . $product['slug']);
+				$this->_redirect('/admin/product?id=' . $product_id);
 			} catch (Exception $e) {
 				$this->db->rollBack();
 				var_dump($e);exit;
@@ -89,7 +90,7 @@ class AdminController extends BaseController
 					}
 				}
 				$this->db->commit();
-				$this->_redirect('/product/' . $product['slug']);
+				$this->_redirect('/shop/' . $product['slug']);
 			} catch (Exception $e) {
 				$this->db->rollBack();
 				var_dump($e);exit;

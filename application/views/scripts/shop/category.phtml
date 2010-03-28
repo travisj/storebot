@@ -1,0 +1,12 @@
+<?= $this->render('shop/_navigation.phtml') ?>
+<div class="span-15 last">
+<h2><?= $this->category['name'] ?></h2>
+<?php if (count($this->products)): ?>
+<?php foreach ($this->products as $product): ?>
+<div class="product">
+<h5><a href="/shop/<?= $product['slug'] ?>"><?= $product['name'] ?></a></h5>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+<?php echo $this->paginationControl($this->products, 'Sliding', 'partials/pagination_control.phtml'); ?>
+</div>

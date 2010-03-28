@@ -1,6 +1,14 @@
 <div class="span-4">
 <ul>
 	<li><a href="/admin/product">Add Product</a></li>
+	<li>Products
+		<ul>
+		<?php foreach ($this->products as $product) : ?>
+		<li><a href="/admin/product?id=<?= $product['id'] ?>"><?= $product['name'] ?></a></li>
+		<?php endforeach ?>
+		</ul>
+	</li>
+	<li><a href="/admin/category">Add Category</a></li>
 </ul>
 </div>
 <div class="span-16 last">

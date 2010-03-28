@@ -1,0 +1,7 @@
+<div class="span-5">
+<ul>
+<?php foreach ($this->categories as $category) : ?>
+<li><a href="/shop/category/<?= $category['slug'] ?>"><?= $category['name'] ?></a></li>
+<?php endforeach ?>
+</ul>
+</div>

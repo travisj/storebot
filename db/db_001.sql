@@ -1,10 +1,11 @@
 drop table if exists `product`;
 create table product (
 	`id` int unsigned NOT NULL auto_increment,
+	`active` tinyint NOT NULL default 1,
 	`slug` varchar(75) NOT NULL,
 	`name` varchar(75) NOT NULL,
 	`description` text NOT NULL,
-	`product_id` int NOT NULL,
+	`category_id` int NOT NULL,
 	PRIMARY KEY  (`id`),
 	UNIQUE KEY `slug` (`slug`)
 ) engine=innodb;
@@ -23,6 +24,7 @@ create table item (
 drop table if exists `user`;
 create table user (
 	`id` int unsigned NOT NULL auto_increment,
+	`active` tinyint NOT NULL default 1,
 	`username` varchar(50) NOT NULL,
 	`password` varchar(50) NOT NULL,
 	`email` varchar(128) NOT NULL,
@@ -33,7 +35,10 @@ create table user (
 drop table if exists `category`;
 create table category (
 	`id` int unsigned NOT NULL auto_increment,
+	`active` tinyint NOT NULL default 1,
 	`name` varchar(50),
+	`slug` varchar(75) NOT NULL,
 	PRIMARY KEY  (`id`),
-	UNIQUE KEY `name` (`name`)
+	UNIQUE KEY `name` (`name`),
+	UNIQUE KEY `slug` (`slug`)
 ) engine=innodb;

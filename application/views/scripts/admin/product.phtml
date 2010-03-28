@@ -21,10 +21,16 @@
 			</select>
 		</td>
 	</tr>
+	<?php if ($this->type == 'update') : ?>
+	<tr>
+		<td>&nbsp;</td>
+		<td><a href="#" id="manage-images">Manage images</a></td>
+	</tr>
+	<?php endif ?>
 	<tr>
 		<td>Description:</td>
 		<td>
-			<textarea name="product[description]" rows="10" cols="40"><?= $this->type == 'update' ? $this->product['name'] : '' ?></textarea>
+			<textarea name="product[description]" rows="10" cols="40"><?= $this->type == 'update' ? $this->product['description'] : '' ?></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -68,5 +74,27 @@ $(function() {
 		var count = $("#item-table tbody tr.newitem").length;
 		$("#item-table tbody").append('<tr class="newitem"><td><input type="text" name="newitem[' + count + '][name]" /></td><td><input type="text" name="newitem[' + count + '][price]" /></td><td><input type="text" name="newitem[' + count + '][quantity]" /></td><td>&nbsp;</td></tr>');
 	});
+
+	$("#manage-images").click(function(e) {
+		e.preventDefault();
+		$("#manage-images-dialog").dialog('open');
+	});
+
+	$("#manage-images-dialog").dialog({
+		autoOpen: false,
+		height: 300,
+		width: 650,
+		modal: true,
+		buttons: {
+			'OK': function() {
+				$(this).dialog('close');
+			}
+		},
+		close: function() {
+		}
+	});
 });
 </script>
+
+<div id="manage-images-dialog" title="Manage Images">
+</div>
