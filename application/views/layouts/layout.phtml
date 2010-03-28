@@ -19,10 +19,10 @@
 				</div>
 				<div class="span-1">&nbsp;</div>
 				<div id="top-nav" class="span-14">
-					<a href="/about"><img class="tab" src="/images/about_tab.png" /></a>
-					<a href="shop"><img class="tab" src="/images/shop_tab.png" /></a>
-					<a href="policy"><img class="tab" src="/images/policies_tab.png" /></a>
-					<a href="/cart"><img class="cart" src="/images/cart_tab.png" /></a>
+					<a href="/about"><img class="tab" src="/images/about_tab<?= $this->controller == 'index' && $this->action == 'about' ? '_active' : '' ?>.png" /></a>
+					<a href="/shop"><img class="tab" src="/images/shop_tab<?= $this->controller == 'shop' ? '_active' : '' ?>.png" /></a>
+					<a href="/policies"><img class="tab" src="/images/policies_tab<?= $this->controller == 'index' && $this->action == 'policies' ? '_active' : '' ?>.png" /></a>
+					<a href="/cart"><img class="cart" src="/images/cart_tab<?= $this->controller == 'cart' ? '_active' : '' ?>.png" /></a>
 				</div>
 				<div class="span-1 last">&nbsp;</div>
 			</div>

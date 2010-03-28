@@ -11,4 +11,12 @@ class IndexController extends BaseController
     { 
 		$this->view->pageTitle = 'Home';
 	}
+
+	public function aboutAction()
+	{
+	}
+
+	public function policiesAction()
+	{
+	}
 }
