@@ -42,3 +42,10 @@ create table category (
 	UNIQUE KEY `name` (`name`),
 	UNIQUE KEY `slug` (`slug`)
 ) engine=innodb;
+
+drop table if exists `cart`;
+create table cart (
+	`uuid` varchar(36) NOT NULL,
+	`items` text,
+	PRIMARY KEY  (`uuid`)
+) engine=innodb;

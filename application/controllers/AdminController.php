@@ -90,7 +90,7 @@ class AdminController extends BaseController
 					}
 				}
 				$this->db->commit();
-				$this->_redirect('/shop/' . $product['slug']);
+				$this->_redirect('/admin/product?id=' . $product['id']);
 			} catch (Exception $e) {
 				$this->db->rollBack();
 				var_dump($e);exit;
@@ -98,6 +98,22 @@ class AdminController extends BaseController
 		} else {
 			$this->_redirect('/admin');
 		}
+	}
+
+	public function uploadProductImageAction()
+	{
+		$status = $msg = $url = '';
+
+		$image = $_FILES['image'];
+		$file_type = substr($image['type'], strpos($image['type'], '/') + 1);
+		try {
+			$url = ProductImage::upload($file_type, file_get_contents($image['tmp_name']));
+			$status = 'OK';
+		} catch (Exception $e) {
+			$status = 'Error';
+			$msg = $e->getMessage();
+		}
+		$this->_helper->json(array('status'=>$status, 'msg'=>$msg, 'url'=>$url));
 	}
 
 	public function loginAction()

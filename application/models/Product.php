@@ -4,18 +4,28 @@ class Product
 {
 	static public function getBySlug($slug)
 	{
+		return self::getByHelper('slug', $slug);
+	}
+
+	static public function getById($id)
+	{
+		return self::getByHelper('id', $id);
+	}
+
+	static private function getByHelper($get_by, $value)
+	{
 		$db = Zend_Registry::get('db');
 
 		$product = $db->fetchRow(
-			'SELECT * FROM product WHERE slug = ?',
-			$slug
+			'SELECT * FROM product WHERE ' . $get_by . ' = ?',
+			$value
 		);
 
 		if (!$product) {
 			throw new ProductNotFoundException($slug . ' not found');
 		}
 
-		$product['items'] = $db->fetchAll(
+		$product['items'] = $db->fetchAssoc(
 			'SELECT * FROM item WHERE product_id = ?',
 			$product['id']
 		);
@@ -41,7 +51,16 @@ class Product
 		$adapter = new Zend_Paginator_Adapter_DbSelect($select);
 		return new Zend_Paginator($adapter);
 	}
+
+	static public function checkStock($item_id, $quantity)
+	{
+		$db = Zend_Registry::get('db');
+		$items_in_stock = $db->fetchOne('SELECT quantity FROM item WHERE id = ?', $item_id);
+
+		return $items_in_stock >= $quantity;
+	}
 }
 
 
 class ProductNotFoundException extends Exception {}
+class OutOfStrockException extends Exception {}

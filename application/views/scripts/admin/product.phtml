@@ -2,6 +2,12 @@
 <?php if ($this->type == 'update') : ?>
 <input type="hidden" name="product[id]" value="<?= $this->product['id'] ?>" />
 <?php endif ?>
+<?php if ($this->type == 'update') : ?>
+<h2>Update <?= $this->product['name'] ?></h2>
+<a href="/shop/<?= $this->product['slug'] ?>">View <?= $this->product['name'] ?> Page </a>
+<?php else : ?>
+<h2>Add new Product</h2>
+<?php endif ?>
 <table>
 	<tr>
 		<td>Name:</td>
@@ -67,6 +73,7 @@
 </table>
 </form>
 
+<script type="text/javascript" src="/js/ajaxupload.js"></script>
 <script type='text/javascript'>
 $(function() {
 	$("#add-another-item").click(function(e) {
@@ -93,8 +100,37 @@ $(function() {
 		close: function() {
 		}
 	});
+
+	var status=$('#upload-status');
+	new AjaxUpload($('#choose-upload'), {
+		action: '/admin/upload-product-image',
+		name: 'image',
+		onSubmit: function(file, ext){
+			if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+                  // check for valid file extension
+				status.text('Only JPG, PNG or GIF files are allowed');
+				return false;
+			}
+			status.text('Uploading...');
+		},
+		onComplete: function(file, response){
+			//On completion clear the status
+			status.text('');
+			//Add uploaded file to list
+			if(response==="success"){
+				$('<li></li>').appendTo('#files').html('<img src="./uploads/'+file+'" alt="" /><br />'+file).addClass('success');
+			} else{
+				$('<li></li>').appendTo('#files').text(file).addClass('error');
+			}
+		}
+	})
 });
 </script>
 
 <div id="manage-images-dialog" title="Manage Images">
+	<div id="upload-status"></div>
+	<input type='radio' name="image_type" value="small" checked="checked" /> Small
+	<input type='radio' name="image_type" value="medium" /> Medium
+	<input type='radio' name="image_type" value="large" /> Large
+	<input type="button" value="Choose image..." id="choose-upload" />
 </div>
