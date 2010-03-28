@@ -14,44 +14,44 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 </head>
 <body class="bp">
-		<div id="header">
-			<div class="container">
-				<div class="span-1">&nbsp;</div>
-				<div id="header-image" class="span-7">
-					<img src="/images/logo.png" />
-				</div>
-				<div class="span-1">&nbsp;</div>
-				<div id="top-nav" class="span-14">
-					<a href="/about"><img class="tab" src="/images/about_tab<?= $this->controller == 'index' && $this->action == 'about' ? '_active' : '' ?>.png" /></a>
-					<a href="/shop"><img class="tab" src="/images/shop_tab<?= $this->controller == 'shop' ? '_active' : '' ?>.png" /></a>
-					<a href="/policies"><img class="tab" src="/images/policies_tab<?= $this->controller == 'index' && $this->action == 'policies' ? '_active' : '' ?>.png" /></a>
-					<a href="/cart"><img class="cart" src="/images/cart_tab<?= $this->controller == 'cart' ? '_active' : '' ?>.png" /></a>
-				</div>
-				<div class="span-1 last">&nbsp;</div>
+	<div id="top-stripe">&nbsp;</div>
+	<div id="header">
+		<div class="container">
+			<div class="span-1">&nbsp;</div>
+			<div id="header-image" class="span-7">
+				<img src="/images/logo.png" />
 			</div>
+			<div class="span-1">&nbsp;</div>
+			<div id="top-nav" class="span-14">
+				<a href="/about"><img class="tab" src="/images/about_tab<?= $this->controller == 'index' && $this->action == 'about' ? '_active' : '' ?>.png" /></a>
+				<a href="/shop"><img class="tab" src="/images/shop_tab<?= $this->controller == 'shop' ? '_active' : '' ?>.png" /></a>
+				<a href="/policies"><img class="tab" src="/images/policies_tab<?= $this->controller == 'index' && $this->action == 'policies' ? '_active' : '' ?>.png" /></a>
+				<a href="/cart"><img class="cart" src="/images/cart_tab<?= $this->controller == 'cart' ? '_active' : '' ?>.png" /></a>
+			</div>
+			<div class="span-1 last">&nbsp;</div>
 		</div>
-		<div id="main">
-			<div class="container">
+	</div>
+	<div id="main">
+		<div class="container">
+			<div class="span-1">&nbsp;</div>
+			<div id="content-background" class="span-22">
 				<div class="span-1">&nbsp;</div>
-				<div id="content-background" class="span-22">
-					<div class="span-1">&nbsp;</div>
-					<div id="content" class="span-20">
-						<?= $this->layout()->content ?>
-					</div>
-					<div class="span-1">&nbsp;</div>
-					&nbsp;
+				<div id="content" class="span-20">
+					<?= $this->layout()->content ?>
 				</div>
-				<div class="span-1 last">&nbsp;</div>
+				<div class="span-1">&nbsp;</div>
+				&nbsp;
 			</div>
+			<div class="span-1 last">&nbsp;</div>
 		</div>
-		<div id="footer">
-			<div class="container">
-				<div class="span-1">&nbsp;</div>
-				<div id="footer-background" class="span-22">
-					aoeuaoeu
-				</div>
-				<div class="span-1 last">&nbsp;</div>
+	</div>
+	<div id="footer">
+		<div class="container">
+			<div class="span-1">&nbsp;</div>
+			<div id="footer-background" class="span-22">
+				aoeuaoeu
 			</div>
+			<div class="span-1 last">&nbsp;</div>
 		</div>
 	</div>
 </body>

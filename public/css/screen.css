@@ -496,6 +496,7 @@ body.bp .hide { display: none; }
 body.bp .highlight { background: yellow; }
 body.bp .added { background: #006600; color: white; }
 body.bp .removed { background: #990000; color: white; }
+body.bp #top-stripe { background: #1f6985; height: 10px; }
 body.bp #header { margin-top: 30px; padding-bottom: 15px; background-image: url(/images/frame_top2.png); background-repeat: no-repeat; background-position: bottom; }
 body.bp #header #header-image { height: 95px; }
 body.bp #header #top-nav { padding-top: 50px; height: 45px; }
