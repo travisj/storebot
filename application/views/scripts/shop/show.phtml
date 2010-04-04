@@ -11,8 +11,8 @@
 		<?php foreach ($this->product['items'] as $item) : ?>
 		<option value="<?= $item['id'] ?>"><?= $item['name'] ?> - $<?= $item['price'] ?></option>
 		<?php endforeach ?>
-		</select><br />
-		quatity: <input type="text" size="3" name="quatity" id="quantity" value="1" />
+		</select>
+		Quatity: <input type="text" size="3" name="quatity" id="quantity" value="1" />
 		<input type="button" id="add-to-cart" value="Add to cart" />
 	</div>
 </div>
@@ -21,6 +21,7 @@
 sb.product = <?= json_encode($this->product) ?>;
 
 $(function() {
+	var timer = null;
 	$("#add-to-cart").click(function() {
 		var item_id = $("#chosen-item").val();
 		var quantity = $("#quantity").val();
@@ -30,8 +31,24 @@ $(function() {
 			item_id: item_id,
 			quantity: quantity
 		};
+
 		$.post('/cart/add-to-cart', post, function(data) {
+			$("#flash-message").html('<span class="main">Item added to your cart. <a href="/cart">View now.</a></span>').slideDown('slow',function() {
+				timer = setTimeout(function() {
+					$("#flash-message").slideUp('slow', function() {
+					});
+				}, 5000);
+			});
 		}, 'json');
+
+		$("#flash-message").mouseover(function() {
+			clearTimeout(timer);
+		}).mouseout(function() {
+			timer = setTimeout(function() {
+				$("#flash-message").slideUp('slow', function() {
+				});
+			}, 1500);
+		});
 	});
 });
 </script>

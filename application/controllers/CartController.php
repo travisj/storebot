@@ -37,6 +37,7 @@ class CartController extends BaseController
 
 						// Now go to PayPal
 						$paypal->set_express_checkout_successful_redirect();
+						exit;
 					}
 					break;
 			}
@@ -56,8 +57,7 @@ class CartController extends BaseController
 	public function thankYouAction()
 	{
 		$paypal = new phpPayPal();
-		$paypal->do_express_checkout_payment();
-		var_dump($paypay->Response);exit;
+		var_dump($paypal);exit;
 	}
 
 	public function addToCartAction()

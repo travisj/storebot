@@ -4,3 +4,6 @@
 [submodule "library/phpPayPal"]
 	path = library/phpPayPal
 	url = git@github.com:travisj/phpPayPal.git
+[submodule "library/uniform"]
+	path = library/uniform
+	url = http://github.com/pixelmatrix/uniform.git

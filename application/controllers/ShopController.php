@@ -26,7 +26,8 @@ class ShopController extends BaseController
 		$slug = $this->_getParam('slug');
 		try {
 			$this->view->pageTitle = $product['name'];
-			$this->view->product = Product::getBySlug($slug);
+			$this->view->product = $product = Product::getBySlug($slug);
+			$this->view->pageTitle = $product['name'];
 		} catch (ProductNotFoundException $e) {
 			$this->_redirect('/shop/not-found');
 		} catch (Exception $e) {

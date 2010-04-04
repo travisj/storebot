@@ -497,6 +497,9 @@ body.bp .highlight { background: yellow; }
 body.bp .added { background: #006600; color: white; }
 body.bp .removed { background: #990000; color: white; }
 body.bp #top-stripe { background: #1f6985; height: 10px; }
+body.bp #flash-message { padding-top: 35px; background: #1f6985; opacity: .9; position: absolute; color: #fff; width: 100%; text-align: center; border-bottom: 5px solid #f26921; font-weight: bold; font-size: 1.9em; }
+body.bp #flash-message .main { opacity: 1; }
+body.bp #flash-message .main a { size: 1em; color: #f26921; }
 body.bp #header { margin-top: 30px; padding-bottom: 15px; background-image: url(/images/frame_top2.png); background-repeat: no-repeat; background-position: bottom; }
 body.bp #header #header-image { height: 95px; }
 body.bp #header #top-nav { padding-top: 50px; height: 45px; }

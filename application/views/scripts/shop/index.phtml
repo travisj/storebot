@@ -1,6 +1,7 @@
 <?php if (count($this->paginator)): ?>
-<?php foreach ($this->paginator as $item): ?>
+<?php foreach ($this->paginator as $product): ?>
 <div class="product">
+<h5><a href="/shop/<?= $product['slug'] ?>"><?= $product['name'] ?></a></h5>
 </div>
 <?php endforeach; ?>
 <?php endif; ?>
