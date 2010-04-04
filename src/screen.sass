@@ -6,6 +6,8 @@
 @import blueprint
 // Import the non-default scaffolding module.
 @import blueprint/modules/scaffolding.sass
+
+@import partials/border-radius.sass
 // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
 +blueprint
 
@@ -44,9 +46,50 @@ body.bp
 				image = image_url("/images/frame_middle.png")	
 		#content
 			padding-top: 10px
+			.image-and-desc
+				background: #E6EC9D
+				padding: 15px
+				+border-radius("6px")
+				font-size: 1.6em
+				font-weight: bold
+				vertical-align: middle
+				margin-bottom: 10px
+			.center
+				text-align: center
+			#cart-updated
+				border: 1px solid #5FAFC3
+				font-weight: bold
+				font-size: 1.5em
+				background:
+					color: #D5EFF5
+					image = image_url("/images/icons/warning_32.png")
+					repeat: no-repeat
+					position: 15px 15px
+				+border-radius("5px")
+				padding: 20px 20px 20px 60px
+				margin-bottom: 25px
+			#cart-error
+				border: 1px solid #5FAFC3
+				font-weight: bold
+				font-size: 1.5em
+				background:
+					color: #D5EFF5
+					image = image_url("/images/icons/warning_32.png")
+					repeat: no-repeat
+					position: 15px 15px
+				+border-radius("5px")
+				padding: 20px 20px 20px 60px
+				margin-bottom: 25px
+			tr.cart-item-error
+				+border-radius("5px")
+				background-color: #E6EC9D
+			.bold
+				font-weight: bold
 	#footer-background
 		padding-top: 40px
 		text-align: center
 		background:
 			image = image_url("/images/frame_bottom.png")
 			repeat: no-repeat
+
+

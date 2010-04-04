@@ -30,7 +30,7 @@
 	<?php if ($this->type == 'update') : ?>
 	<tr>
 		<td>&nbsp;</td>
-		<td><a href="#" id="manage-images">Manage images</a></td>
+		<td><a href="/admin/product-images?id=<?= $this->product['id'] ?>" id="manage-images">Manage images</a></td>
 	</tr>
 	<?php endif ?>
 	<tr>
@@ -81,56 +81,5 @@ $(function() {
 		var count = $("#item-table tbody tr.newitem").length;
 		$("#item-table tbody").append('<tr class="newitem"><td><input type="text" name="newitem[' + count + '][name]" /></td><td><input type="text" name="newitem[' + count + '][price]" /></td><td><input type="text" name="newitem[' + count + '][quantity]" /></td><td>&nbsp;</td></tr>');
 	});
-
-	$("#manage-images").click(function(e) {
-		e.preventDefault();
-		$("#manage-images-dialog").dialog('open');
-	});
-
-	$("#manage-images-dialog").dialog({
-		autoOpen: false,
-		height: 300,
-		width: 650,
-		modal: true,
-		buttons: {
-			'OK': function() {
-				$(this).dialog('close');
-			}
-		},
-		close: function() {
-		}
-	});
-
-	var status=$('#upload-status');
-	new AjaxUpload($('#choose-upload'), {
-		action: '/admin/upload-product-image',
-		name: 'image',
-		onSubmit: function(file, ext){
-			if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
-                  // check for valid file extension
-				status.text('Only JPG, PNG or GIF files are allowed');
-				return false;
-			}
-			status.text('Uploading...');
-		},
-		onComplete: function(file, response){
-			//On completion clear the status
-			status.text('');
-			//Add uploaded file to list
-			if(response==="success"){
-				$('<li></li>').appendTo('#files').html('<img src="./uploads/'+file+'" alt="" /><br />'+file).addClass('success');
-			} else{
-				$('<li></li>').appendTo('#files').text(file).addClass('error');
-			}
-		}
-	})
 });
 </script>
-
-<div id="manage-images-dialog" title="Manage Images">
-	<div id="upload-status"></div>
-	<input type='radio' name="image_type" value="small" checked="checked" /> Small
-	<input type='radio' name="image_type" value="medium" /> Medium
-	<input type='radio' name="image_type" value="large" /> Large
-	<input type="button" value="Choose image..." id="choose-upload" />
-</div>

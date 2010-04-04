@@ -1,3 +1,6 @@
 [submodule "library/Zend"]
 	path = library/Zend
 	url = git://github.com/tjohns/zf.git
+[submodule "library/phpPayPal"]
+	path = library/phpPayPal
+	url = git@github.com:travisj/phpPayPal.git

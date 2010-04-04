@@ -22,7 +22,7 @@ class Product
 		);
 
 		if (!$product) {
-			throw new ProductNotFoundException($slug . ' not found');
+			throw new ProductNotFoundException($value . ' not found');
 		}
 
 		$product['items'] = $db->fetchAssoc(
@@ -36,6 +36,11 @@ class Product
 				$product['sold_out'] = false;
 			}
 		}
+
+		$product['images'] = $db->fetchAll(
+			'SELECT * FROM images WHERE product_id = ? ORDER BY `default` DESC',
+			$product['id']
+		);
 
 		return $product;
 	}

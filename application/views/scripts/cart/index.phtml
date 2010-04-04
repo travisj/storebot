@@ -1,1 +1,72 @@
 <h2>Your Cart</h2>
+<?php if ($this->cart_updated) : ?>
+<div id="cart-updated">
+	Your cart has been updated.
+</div>
+<?php endif ?>
+<?php if ($this->products) : ?>
+<?php if ($this->cart['meta']['max_item_warning']) : ?>
+<div id="cart-error">
+	There are errors with your cart. You must address them before checking out.
+</div>
+<?php endif ?>
+<form action="" method="post">
+<table>
+<thead>
+	<tr>
+		<th>&nbsp;</th>
+		<th>Items</th>
+		<th>Quantity</th>
+		<th>Price</th>
+		<th>Delete</th>
+	</tr>
+</thead>
+<tbody>
+<?php foreach ($this->cart['cart'] as $product_id => $item) : ?>
+<?php $product = $this->products[$product_id] ?>
+	<?php foreach ($item as $item_id => $detail) : ?>
+	<tr class="<?= $detail['max_items'] ? 'cart-item-error' : '' ?>">
+		<td>
+			<?php if ($product['images']) : ?>
+			<?= $this->productImage($product['images'][0]['id'], 's') ?>
+			<?php endif ?>
+		</td>
+		<td>
+			<?= $product['name'] ?>
+			-
+			<?= $product['items'][$item_id]['name'] ?>
+		</td>
+		<td>
+			<input type="text" name="cart[<?= $product_id ?>][<?= $item_id ?>][quantity]" size="3" value="<?= $detail['quantity'] ?>" />
+		</td>
+		<td>
+			$<?= number_format($detail['subtotal'], 2) ?>
+		</td>
+		<td>
+			<a href="/cart/remove-item?product_id=<?= $product_id ?>&item_id=<?= $item_id ?>">
+				<img src="/images/icons/delete_16.png" />
+			</a>
+		</td>
+	</tr>
+	<?php endforeach ?>
+<?php endforeach ?>
+</tbody>
+<tfoot>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+		<td><input type="submit" value="Update" name="submit_type" /></td>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<?php if (!$this->cart['meta']['max_item_warning']) : ?>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+		<td><input type="submit" value="Pay Now With PayPal" name="submit_type" /></td>
+		<td class="bold">$<?= number_format($this->cart['meta']['total'], 2) ?></td>
+		<td>&nbsp;</td>
+	<?php endif ?>
+</tfoot>
+</table>
+</form>
+<?php else : ?>
+Your cart is empty.
+<?php endif ?>

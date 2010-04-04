@@ -49,3 +49,14 @@ create table cart (
 	`items` text,
 	PRIMARY KEY  (`uuid`)
 ) engine=innodb;
+
+drop table if exists `images`;
+create table images (
+	`id` varchar(32) NOT NULL,
+	`description` varchar(500),
+	`product_id` int,
+	`type` varchar(10) NOT NULL,
+	`default` tinyint NOT NULL DEFAULT 0,
+	UNIQUE KEY `image_id_product_id` (`id`, `product_id`),
+	KEY (`product_id`)
+) engine=innodb;

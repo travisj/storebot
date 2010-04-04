@@ -4,6 +4,7 @@ ob_start("ob_gzhandler", 4096);
 set_include_path(
     '../library' . 
     PATH_SEPARATOR . '../library/Zend/library' . 
+    PATH_SEPARATOR . '../library/phpPayPal' . 
     PATH_SEPARATOR . '../' .
     PATH_SEPARATOR . '../application/' .
     PATH_SEPARATOR . '../application/models/' .

@@ -116,6 +116,30 @@ class AdminController extends BaseController
 		$this->_helper->json(array('status'=>$status, 'msg'=>$msg, 'url'=>$url));
 	}
 
+	public function productImagesAction()
+	{
+		$id = $this->_getParam('id');
+
+		if ($this->_request->isPost()) {
+			$desc = $this->_getParam('description');
+
+			if ($_FILES['small']['size'] && $_FILES['medium']['size'] && $_FILES['large']['size']) {
+				$file_type = array_pop(explode('.', $_FILES['large']['name']));
+				$image_id = ProductImage::upload($file_type, file_get_contents($_FILES['large']['tmp_name']), '_l');
+				ProductImage::upload($file_type, file_get_contents($_FILES['medium']['tmp_name']), '_m');
+				ProductImage::upload($file_type, file_get_contents($_FILES['small']['tmp_name']), '_s');
+
+				$this->db->insert('images', array('id'=>$image_id, 'product_id'=>$id, 'description'=>$desc, 'type'=>$file_type));
+			}
+		}
+		$this->view->product = Product::getById($id);
+
+		$this->view->current_images = $this->db->fetchAll(
+			'SELECT * FROM images WHERE product_id = ?',
+			$id
+		);
+	}
+
 	public function loginAction()
 	{
 		if ($this->_request->isPost()) {

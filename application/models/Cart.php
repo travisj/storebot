@@ -14,17 +14,24 @@ class Cart
 			throw new OutOfStrockException('You can not add more than ' . $product['items'][$item_id]['quantity'] . ' items to your cart at this time.');
 		}
 
-		$cart = self::get();
+		$cart = self::get(false);
 		if (isset($cart[$product_id])) {
 			if (isset($cart[$product_id][$item_id])) {
-				$cart[$product_id][$item_id] += $quantity;
+				$cart[$product_id][$item_id]['quantity'] += $quantity;
 			} else {
-				$cart[$product_id][$item_id] = $quantity;
+				$cart[$product_id][$item_id]['quantity'] = $quantity;
 			}
 		} else {
 			$cart[$product_id] = array();
-			$cart[$product_id][$item_id] = $quantity;
+			$cart[$product_id][$item_id]['quantity'] = $quantity;
 		}
+		return self::save($cart);
+	}
+
+	static public function removeItem($product_id, $item_id)
+	{
+		$cart = self::get(false);
+		unset($cart[$product_id][$item_id]);
 		return self::save($cart);
 	}
 
@@ -36,19 +43,36 @@ class Cart
 		return $_SESSION['cart_uuid'];
 	}
 
-	static public function get()
+	static public function get($with_meta=true)
 	{
 		$db = Zend_Registry::get('db');
 
 		$cart = $db->fetchOne('SELECT items FROM cart WHERE uuid = ?', self::getUuid());
 
+		$cart_array = array();
 		if (!$cart) {
-			$cart_array = array();
+			$cart_array['cart'] = array();
 		} else {
-			$cart_array = json_decode($cart, true);
+			$cart_array['cart'] = json_decode($cart, true);
 		}
 
-		return $cart_array;
+		$cart_array['meta']['max_item_warning'] = false;
+		$cart_array['meta']['total']  = 0;
+		foreach ($cart_array['cart'] as $product_id => $items) {
+			$product = Product::getById($product_id);
+			foreach ($items as $item_id => $detail) {
+				$cart_array['cart'][$product_id][$item_id]['subtotal'] = $detail['quantity'] * $product['items'][$item_id]['price'];
+				$cart_array['cart'][$product_id][$item_id]['max_items'] = false;
+				if ($detail['quantity'] > $product['items'][$item_id]['quantity']) {
+					$cart_array['cart'][$product_id][$item_id]['max_items'] = $product['items'][$item_id]['quantity'];
+					$cart_array['meta']['max_item_warning'] = true;
+				} else {
+					$cart_array['meta']['total'] += $detail['quantity'] * $product['items'][$item_id]['price'];
+				}
+			}
+		}
+
+		return $with_meta ? $cart_array : $cart_array['cart'];
 	}
 
 	static public function save($cart)
@@ -56,6 +80,12 @@ class Cart
 		$db = Zend_Registry::get('db');
 
 		if (is_array($cart)) {
+			foreach ($cart as $product_id => $items) {
+				foreach ($items as $item_id => $detail) {
+					unset($cart[$product_id][$item_id]['max_items']);
+					unset($cart[$product_id][$item_id]['subtotal']);
+				}
+			}
 			$cart = json_encode($cart);
 		}
 

@@ -1,0 +1,20 @@
+<a href="/admin/product?id=<?= $this->product['id'] ?>">Back to <?= $this->product['name'] ?></a>
+<?php if ($this->current_images) : ?>
+<h2>Current Images</h2>
+<?php foreach ($this->current_images as $image) : ?>
+<div class="image-and-desc">
+<?= $this->productImage($image['id'], 's') ?>
+<?= $image['description'] ?>
+</div>
+<?php endforeach ?>
+<hr />
+<?php endif ?>
+
+<h2>Upload a new image</h2>
+<form enctype="multipart/form-data" action="" method="post">
+<p><label>Description: <input type="text" name="description" size="60" /></label></p>
+<p><label>Small: <input type="file" name="small" /></label></p>
+<p><label>Medium: <input type="file" name="medium" /></label></p>
+<p><label>Large: <input type="file" name="large" /></label></p>
+<p><input type="submit" value="Add" /></p>
+</form>
